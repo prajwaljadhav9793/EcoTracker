@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Activity Tracker</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}">
+</head>
+
+<body>
+
+<h2>Enter Your Daily Activities</h2>
+
+<form method="POST">
+
+Electricity (units):
+<input type="number" name="electricity"><br>
+
+Vehicle Type:
+<select name="vehicle">
+<option>Car</option>
+<option>Bike</option>
+<option>Bus</option>
+</select><br>
+
+Distance (km):
+<input type="number" name="distance"><br>
+
+Food Type:
+<select name="food">
+<option>Vegetarian</option>
+<option>Non-Vegetarian</option>
+</select><br>
+
+Waste (kg):
+<input type="number" name="waste"><br>
+
+<button type="submit">Calculate</button>
+
+</form>
+
+</body>
+</html>

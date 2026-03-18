@@ -1,0 +1,49 @@
+body{
+font-family: Arial;
+margin:0;
+background:#f0f4f3;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+background:#2e7d32;
+color:white;
+padding:10px 20px;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+}
+
+nav li{
+margin-left:20px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+}
+
+.container{
+padding:40px;
+text-align:center;
+}
+
+.btn{
+background:#4caf50;
+padding:10px 20px;
+color:white;
+border-radius:5px;
+text-decoration:none;
+}
+
+form{
+background:white;
+padding:30px;
+width:400px;
+margin:auto;
+border-radius:10px;
+box-shadow:0px 0px 10px gray;
+}

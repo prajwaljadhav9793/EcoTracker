@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>EcoTracker</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}"/>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/home.css') }}"
+    />
+      <video autoplay muted loop id="background-video">
+      <source
+        src="{{ url_for('static', filename='videos/bg2.mp4') }}"
+        type="video/mp4"
+      />
+    </video>
+  </head>
+
+  <body>
+    <h1>EcoTracker</h1>
+    <h2>The Butterfly Effect Of Everyday Life</h2>
+
+    <p id="tagline">|| Track your carbon footprint ||</p>
+    <form method="POST">
+      <div class="navbar">
+        <a id="loginid" href="/login">Login</a>
+        <a id="registerid" href="/register">Register</a>
+        <a id="calculatorid" href="/calculator">calculator</a>
+        <a id="dashboardid" href="/dashboard">dashboard</a>
+        <a id="resultid" href="/result">result</a>
+      </div>
+    </form>
+  </body>
+</html>
