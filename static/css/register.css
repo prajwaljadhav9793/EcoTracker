@@ -1,11 +1,12 @@
 h2{
     text-align: center;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 40px;
     color: darkgreen;
     text-decoration: none;
 }
 button{
+    width: 100%;
     display: block;
     padding: 10px 20px;
     border-radius: 15px;
@@ -19,4 +20,21 @@ button:hover{
     backdrop-filter: blur(6px);
     transform: scale(1.1);
     background: rgba(43, 182, 94, 0.5);
+}
+form{
+    background: rgba(225, 225, 225, 0.6);
+    padding: 40px 35px;
+    width: 320px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(24, 17, 17, 0.5);
+    text-align: center;
+}
+input{
+    width: 100%;
+    padding: 2px 5px;
+    margin: 12px 0;
+    border: 1px solid #d4d3d3;
+    border-radius: 10px;
+    font-size: 20px;
+    transition: 0.3s;
 }
