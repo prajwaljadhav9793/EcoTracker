@@ -63,4 +63,5 @@ h3{
     font-style: italic;
     font-family: cursive;
     margin-top: 10px;
+    text-shadow: 0 15px 35px rgba(0,0,0,0.9);
 }
