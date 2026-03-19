@@ -1,67 +1,66 @@
-body{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:linear-gradient(135deg,#4CAF50,#2E7D32);
-background-image: url("../images/deep-underwater-coral-reef-aquatic-beauty-motion-generated-by-ai.jpg");
-background-size: cover;
-background-position: center;
-
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  background-image: url("../images/register1.jpeg");
+  background-size: cover;
+  background-position: center;
 }
-h2{
-    text-align: center;
-    font-weight: bold;
-    font-size: 40px;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
+h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  color: rgb(250, 250, 250);
+  text-decoration: none;
 }
-button{
-    width: 100%;
-    display: block;
-    padding: 10px 20px;
-    border-radius: 15px;
-    background-color: rgb(67, 155, 67);
-    color: white;
-    border: black solid 1px;
-    align-items: center;
-    font-size: 20px;
+button {
+  width: 100%;
+  display: block;
+  padding: 10px 20px;
+  border-radius: 15px;
+  background-color: rgb(67, 155, 67);
+  color: white;
+  border: black solid 1px;
+  align-items: center;
+  font-size: 20px;
 }
-button:hover{
-    backdrop-filter: blur(6px);
-    transform: scale(1.1);
-    background: rgba(43, 182, 94, 0.5);
+button:hover {
+  backdrop-filter: blur(6px);
+  transform: scale(1.1);
+  background: rgba(43, 182, 94, 0.5);
 }
-form{
-    background: rgba(225, 225, 225, 0.6);
-    padding: 40px 35px;
-    width: 320px;
-    border-radius: 15px;
-    box-shadow: 0 15px 35px rgba(24, 17, 17, 0.5);
-    text-align: center;
+form {
+  background: rgba(183, 177, 177, 0.6);
+  padding: 40px 35px;
+  width: 320px;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(24, 17, 17, 0.5);
+  text-align: center;
 }
-input{
-    width: 100%;
-    padding: 2px 5px;
-    margin: 12px 0;
-    border: 1px solid #d4d3d3;
-    border-radius: 10px;
-    font-size: 20px;
-    transition: 0.3s;
+input {
+  width: 100%;
+  padding: 2px 5px;
+  margin: 12px 0;
+  border: 1px solid #292525;
+  border-radius: 10px;
+  font-size: 20px;
+  transition: 0.3s;
 }
-input:focus{
-    border-color: #4CAF50;
-    outline: none;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+input:focus {
+  border-color: #4caf50;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
-h3{
-    text-align: center;
-    font-size: 20px;
-    color: rgb(255, 255, 255);
-    letter-spacing: 1px;
-    font-style: italic;
-    font-family: cursive;
-    margin-top: 10px;
-    text-shadow: 0 15px 35px rgba(0,0,0,0.9);
+h3 {
+  text-align: center;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  letter-spacing: 1px;
+  font-style: italic;
+  font-family: cursive;
+  margin-top: 10px;
+  text-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
 }
