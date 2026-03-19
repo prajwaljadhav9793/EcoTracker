@@ -1,2 +1,3 @@
 # EcoTracker
-Mini project sem 4 
+Mini project 
+Eco tracker - The Butterfly Effect of everyday life
