@@ -37,20 +37,19 @@ h3{
     margin-bottom:30px;
 }
 
-/* ✅ FIXED FORM (same as register) */
+
 form{
     background:rgba(225, 225, 225, 0.6);
-    padding:30px 30px;   /* ✅ changed */
+    padding:30px 30px;   
     width:320px;
     border-radius:12px;
     box-shadow:0 15px 35px rgba(0,0,0,0.2);
     text-align:center;
 }
 
-/* ✅ INPUT FIXED */
 input{
     width:100%;
-    padding:12px;   /* ✅ changed */
+    padding:12px;  
     margin:8px 0;
     border:1px solid #ccc;
     border-radius:6px;
@@ -64,20 +63,19 @@ input:focus{
     box-shadow:0 0 5px rgba(76,175,80,0.5);
 }
 
-/* ✅ SELECT MATCHED */
 select{
     width: 100%;
-    padding: 12px;   /* ✅ matched */
+    padding: 12px; 
     border-radius: 6px;
     border: 1px solid #ccc;
     margin:8px 0;
 }
 
-/* ✅ BUTTON FIXED */
+
 button{
     width:100%;
-    padding:12px;   /* ✅ changed */
-    margin-top:15px; /* ✅ changed */
+    padding:12px;   
+    margin-top:15px; 
     border:none;
     border-radius:6px;
     background:#4CAF50;
