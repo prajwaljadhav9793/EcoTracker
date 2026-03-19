@@ -1,8 +1,13 @@
 h2{
-    color: green;
+    color:white;
     text-align: center;
     font-weight: bold;
     font-size: 40px;
+}
+body{
+    background-image:url(../images/deep-underwater-coral-reef-aquatic-beauty-motion-generated-by-ai.jpg);
+    background-position: center;
+    background-size: cover;
 }
 form{
     display: flex;
