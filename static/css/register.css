@@ -18,7 +18,7 @@ background-size: cover;
 background-position: center;
 }
 
-/* Heading same as login */
+
 h2{
 color:white;
 font-weight: bold;
@@ -26,9 +26,10 @@ font-size:32px;
 letter-spacing:1px;
 text-align:center;
 margin-bottom:10px;
+text-shadow: #000000 2px;
 }
 
-/* Subheading same */
+
 h3{
 text-align:center;
 font-size:22px;
@@ -39,7 +40,7 @@ font-family: cursive;
 margin-bottom:30px;
 }
 
-/* Form box same */
+
 form{
 background:rgba(225, 225, 225, 0.6);
 padding:40px 35px;
@@ -49,7 +50,7 @@ box-shadow:0 15px 35px rgba(0,0,0,0.2);
 text-align:center;
 }
 
-/* Inputs same */
+
 input{
 width:100%;
 padding:12px;
@@ -66,7 +67,7 @@ outline:none;
 box-shadow:0 0 5px rgba(76,175,80,0.5);
 }
 
-/* Button same */
+
 button{
 width:100%;
 padding:12px;
