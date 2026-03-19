@@ -4,3 +4,24 @@ h2{
     font-weight: bold;
     font-size: 40px;
 }
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 15px;
+    background: rgba(203, 98, 98, 0.6);
+    width: 320px;
+    border-radius: 15px;
+    text-align: center;
+    text-decoration: none;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:12px 0;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:14px;
+transition:0.3s;
+}
