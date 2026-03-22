@@ -11,7 +11,7 @@ body{
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#4CAF50,#2E7D32);
+    background:linear-gradient(135deg,#4CAF50,#318935);
     background-image: url("../images/11.jpg");
     background-size: cover;
     background-position: center;
