@@ -1,3 +1,10 @@
 *{
     background-color: mediumseagreen;
 }
+h2{
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+}
