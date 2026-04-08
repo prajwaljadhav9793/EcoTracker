@@ -3,7 +3,7 @@ import os
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,redirect, url_for
 from modules.user import (
     validate_name,
     validate_email,
@@ -30,7 +30,7 @@ def login():
 
         #print("Login:", email, password)
 
-        return "Login Successful"
+        return redirect(url_for('calculator'))
 
     return render_template("login.html")
 
