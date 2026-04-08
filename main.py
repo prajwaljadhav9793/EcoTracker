@@ -72,14 +72,39 @@ def register():
 # Calculator result
 @app.route("/calculator", methods=['GET','POST'])
 def calculator():
+
+    if request.method == 'POST':
+
+        distance = float(request.form['distance'])
+        electricity = float(request.form['electricity'])
+        vehicle = request.form['vehicle']
+        food = request.form['food']
+
+        vehicle_factor = {
+            "Car":0.21,
+            "Bike":0.12,
+            "Bus":0.10,
+        }
+
+        food_factor = {
+            "Vegetarian":1.5,
+            "Non-Vegetarian":2.5
+        }
+
+        transport_co2 = distance * 0.21
+        electricity_co2 = electricity * 0.82
+        food_co2 = food_factor[food]
+        vehicle_co2 = vehicle_factor[vehicle]
+
+        total = transport_co2 + electricity_co2 + food_co2 + vehicle_co2
+
+        return render_template("result.html",carbon=total)
+
+    # Calculator page
     return render_template("calculator.html")
 
-# Dashboard page
-@app.route('/dashboard', methods=['GET','POST'])
-def dashboard():
-    return render_template("dashboard.html")
 
-@app.route('/result', methods=['GET','POST'])
+@app.route("/result", methods=['GET','POST'])
 def result():
     return render_template("result.html")
 

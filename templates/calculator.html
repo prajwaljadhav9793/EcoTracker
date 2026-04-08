@@ -1,48 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/calculator.css')}}">
-    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}"/>
-    <title >EcoTracker Carbon Footprint Calculator</title>
-</head>
-
-<body>
-
-<h2>EcoTracker Carbon Footprint Calculator</h2>
-<h3 id="main">Enter your Daily Activities</h3>
-
-<form action="/dashboard" method="POST">
-
-<label>Electricity Usage (Units per month)</label><br>
-<input type="number" name="electricity" required>
-<br><br>
-
-<label>Vehicle Type</label><br>
-<select name="vehicle">
-    <option value="Car">Car</option>
-    <option value="Bike">Bike</option>
-    <option value="Bus">Bus / Public Transport</option>
-</select>
-<br><br>
-
-<label>Distance Travelled (km)</label><br>
-<input type="number" name="distance" required>
-<br><br>
-
-<label>Food Type</label><br>
-<select name="food">
-    <option value="Vegetarian">Vegetarian</option>
-    <option value="Non-Vegetarian">Non-Vegetarian</option>
-</select>
-<br><br>
-
-<label>Waste Generated (kg)</label><br>
-<input type="number" name="waste" required>
-<br><br>
-
-<button type="submit">Calculate Carbon Footprint</button>
-
-</form>
-
-</body>
+  <head>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/calculator.css')}}"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/logo.png') }}"
+    />
+    <title>EcoTracker Carbon Footprint Calculator</title>
+  </head>
+  <body>
+    <h2>EcoTracker Carbon Footprint Calculator</h2>
+    <h3 id="main">Enter your Daily Activities</h3>
+    <form action="/calculator" method="POST">
+      <label>Electricity Usage (Units per month)</label><br />
+      <input type="number" name="electricity" required />
+      <br /><br />
+      <label>Vehicle Type</label><br />
+      <select name="vehicle">
+        <option value="Car">Car</option>
+        <option value="Bike">Bike</option>
+        <option value="Bus">Bus / Public Transport</option>
+      </select>
+      <br /><br />
+      <label>Distance Travelled (km)</label><br />
+      <input type="number" name="distance" required />
+      <br /><br />
+      <label>Food Type</label><br />
+      <select name="food">
+        <option value="Vegetarian">Vegetarian</option>
+        <option value="Non-Vegetarian">Non-Vegetarian</option>
+      </select>
+      <br /><br />
+      <label>Waste Generated (kg)</label><br />
+      <input type="number" name="waste" required />
+      <br /><br />
+      <button type="submit">Calculate Carbon Footprint</button>
+    </form>
+  </body>
 </html>

@@ -6,14 +6,14 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/result.css') }}"
     />
-    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}"/>
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/logo.png') }}"
+    />
   </head>
-
   <body>
     <h2>Your Carbon Footprint</h2>
-
     <h3>{{carbon}} kg CO2</h3>
-
-    <a href="/dashboard">Calculate Again</a>
+    <a href="/calculator">Calculate Again</a>
   </body>
 </html>
