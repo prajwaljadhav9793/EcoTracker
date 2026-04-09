@@ -78,6 +78,7 @@ def calculator():
         distance = float(request.form['distance'])
         electricity = float(request.form['electricity'])
         vehicle = request.form['vehicle']
+        
 
         vehicle_factor = {
             "Car":0.21,
