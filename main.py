@@ -11,7 +11,6 @@ from modules.user import (
     create_user
 )
 
-
 app = Flask(__name__)
 
 # Home page
