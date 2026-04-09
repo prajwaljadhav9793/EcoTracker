@@ -83,9 +83,11 @@ def calculator():
             "Car":0.21,
             "Bike":0.12,
             "Bus":0.10,
+            "electric car":0.05,
+            "electric bike":0.02,
+            "Bicycle":0.01,
+            "Walk":0.0
         }
-
-       
 
         transport_co2 = distance * 0.21
         electricity_co2 = electricity * 0.82
