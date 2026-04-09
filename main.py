@@ -13,7 +13,6 @@ from modules.user import (
 
 app = Flask(__name__)
 
-
 # Home page
 @app.route('/')
 def home():
