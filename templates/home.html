@@ -1,33 +1,49 @@
-<!doctype html>
-<html>
-  <head>
-    <title>EcoTracker</title>
-    <link
-      rel="icon"
-      href="{{ url_for('static', filename='images/logo.png') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/home.css') }}"
-    />
-    <video autoplay muted loop id="background-video">
-      <source
-        src="{{ url_for('static', filename='videos/bg2.mp4') }}"
-        type="video/mp4"
-      />
-    </video>
-  </head>
-  <body>
-    <h1>EcoTracker</h1>
-    <h2>The Butterfly Effect Of Everyday Life</h2>
-    <p id="tagline">|| Track your carbon footprint ||</p>
-    <form method="POST">
-      <div class="navbar">
-        <a id="loginid" href="/login">Login</a>
-        <a id="registerid" href="/register">Register</a>
-        <a id="calculatorid" href="/calculator">calculator</a>
-        <a id="resultid" href="/result">result</a>
-      </div>
-    </form>
-  </body>
-</html>
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="/" class="logo">
+  <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="EcoTracker Logo">
+  <span>EcoTracker</span>
+  </a>
+
+  <ul class="navlinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+
+  <div class="nav-buttons">
+    <a href="/login">Login</a>
+    <a href="/register" class="btn">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+
+  <h1>
+    Track Your Carbon Footprint <br>
+    Build a Greener Future 🌱
+  </h1>
+
+  <p>
+    Monitor your daily impact, earn eco points, and unlock rewards.
+  </p>
+
+  <div class="cta">
+    <input type="text" placeholder="Enter your email">
+    <a href="/calculator" class="btn">Start Free</a>
+  </div>
+
+</section>
+
+<!-- DASHBOARD PREVIEW -->
+<section class="preview">
+  <img src="{{ url_for('static', filename='images/dash.png') }}">
+</section>
+
+</body>
