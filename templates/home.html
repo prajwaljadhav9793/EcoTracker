@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 <body>
 
-<!-- NAVBAR -->
+
 <nav class="navbar">
   <a href="/" class="logo">
   <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="EcoTracker Logo">
@@ -26,7 +26,7 @@
   </div>
 </nav>
 
-<!-- HERO -->
+
 <section id="home" class="hero">
 
   <h1>
@@ -38,16 +38,81 @@
     Monitor your daily impact, earn eco points, and unlock rewards.
   </p>
 
-  <div class="cta">
-    <input type="text" placeholder="Enter your email">
-    <a href="/calculator" class="btn">Start Free</a>
+<form action="/calculator" method="GET" class="cta">
+  <input type="email" name="email" placeholder="Enter your email" required>
+  <button type="submit" class="btn">Start Free</button>
+</form>
+
+
+</section>
+
+
+<section class="preview">
+  <img src="{{ url_for('static', filename='images/dash.png') }}">
+</section>
+
+
+<section id="features" class="features">
+
+  <h2>Features</h2>
+  <p class="section-subtitle">Powerful tools to track and reduce your carbon footprint</p>
+
+  <div class="feature-grid">
+
+    <div class="feature-card">
+      <h3>🌍 Carbon Tracking</h3>
+      <p>Automatically calculate emissions from electricity, transport, water, and waste.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>📊 Interactive Dashboard</h3>
+      <p>Visualize your carbon footprint with charts, graphs, and eco scores.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>🏆 Eco Rewards</h3>
+      <p>Earn points, unlock badges, and stay motivated with achievements.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>📅 Daily Tracking</h3>
+      <p>Log your daily activities and monitor your environmental impact.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>💡 Eco Tips</h3>
+      <p>Get smart suggestions to reduce emissions and live sustainably.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>📈 Progress Insights</h3>
+      <p>Track improvements over time with weekly and monthly reports.</p>
+    </div>
+
   </div>
 
 </section>
 
-<!-- DASHBOARD PREVIEW -->
-<section class="preview">
-  <img src="{{ url_for('static', filename='images/dash.png') }}">
+
+
+<section id="about" class="about">
+
+  <h2>🌍 About EcoTracker</h2>
+
+  <p>
+    EcoTracker is a web-based platform designed to help individuals understand and reduce their carbon footprint. 
+    It tracks daily activities such as electricity usage, transportation, water consumption, and waste generation.
+  </p>
+
+  <p>
+    By converting everyday actions into carbon emissions, the system provides insights, eco scores, and personalized suggestions 
+    to encourage sustainable living. Users can monitor progress, earn eco points, and unlock rewards for eco-friendly behavior.
+  </p>
+
+  <p>
+    Our mission is simple — make sustainability easy, engaging, and accessible for everyone.
+  </p>
+
 </section>
 
 </body>

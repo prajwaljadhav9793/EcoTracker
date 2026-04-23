@@ -1,24 +1,34 @@
 <!doctype html>
-<html>
-  <head>
-    <link
-      rel="stylesheet"
-      href="{{url_for('static',filename='css/calculator.css')}}"
-    />
-    <link
-      rel="icon"
-      href="{{ url_for('static', filename='images/logo.png') }}"
-    />
-    <title>EcoTracker Carbon Footprint Calculator</title>
-  </head>
-  <body>
-    <h2>EcoTracker Carbon Footprint Calculator</h2>
-    <h3 id="main">Enter your Daily Activities</h3>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <link rel="stylesheet" href="{{url_for('static',filename='css/calculator.css')}}" />
+
+  <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" />
+
+  <!-- Premium Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <title>EcoTracker Carbon Footprint Calculator</title>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h2>🌍 EcoTracker Carbon Calculator</h2>
+    <h3>Track Today. Save Tomorrow.</h3>
+
     <form action="/calculator" method="POST">
-      <label>Electricity Usage (Units per month)</label><br />
-      <input type="number" name="electricity" required />
-      <br /><br />
-      <label>Vehicle Type</label><br />
+
+      
+      <label>⚡ Electricity Usage (Units / Month)</label>
+      <input type="number" name="electricity" placeholder="Enter units used" required />
+
+      
+      <label>🚗 Vehicle Type</label>
       <select name="vehicle">
         <option value="Car">Car</option>
         <option value="Bike">Bike</option>
@@ -28,15 +38,34 @@
         <option value="Bicycle">Bicycle</option>
         <option value="Walk">Walk</option>
       </select>
-      <br /><br />
-      <label>Distance Travelled (km)</label><br />
-      <input type="number" name="distance" required />
-      <br /><br />
-      <br /><br />
-      <label>Waste Generated (kg)</label><br />
-      <input type="number" name="waste" required />
-      <br /><br />
-      <button type="submit">Calculate Carbon Footprint</button>
+
+      
+      <button type="button" onclick="startJourney()">
+        🗺️ Start Journey
+      </button>
+
+     
+      <label>📍 Distance Travelled (km)</label>
+      <input type="number" name="distance" value="{{ distance }}">
+
+      
+      <label>♻️ Waste Generated (kg)</label>
+      <input type="number" name="waste" placeholder="Enter waste amount" required />
+
+     
+      <button type="submit">
+        🌱 Calculate Footprint
+      </button>
+
     </form>
-  </body>
+
+  </div>
+
+  <script>
+    function startJourney(){
+      window.location.href="/map";
+    }
+  </script>
+
+</body>
 </html>
