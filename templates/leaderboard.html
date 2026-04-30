@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EcoTracker Leaderboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>🏆 EcoTracker Leaderboard</h1>
+
+    {% if leaderboard and leaderboard|length > 0 %}
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>User</th>
+          <th>Eco Points</th>
+          <th>Badge</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in leaderboard %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.points }}</td>
+          <td>
+            {% if user.points >= 90 %}
+              🌍 Eco Hero
+            {% elif user.points >= 70 %}
+              🌱 Green Champion
+            {% elif user.points >= 50 %}
+              ♻️ Eco Starter
+            {% else %}
+              ⚠️ Beginner
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <div class="empty-state">
+        No scores yet. Calculate your footprint first.
+      </div>
+    {% endif %}
+
+    <div class="actions">
+      <a href="{{ url_for('calculator') }}" class="back-btn">⬅ Calculator</a>
+      <a href="{{ url_for('home') }}" class="back-btn">🏠 Home</a>
+    </div>
+  </div>
+</body>
+</html>

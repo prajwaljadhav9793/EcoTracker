@@ -108,6 +108,8 @@ function stopTracking() {
 
   let distance = totalDistance.toFixed(2);
 
-  // redirect to calculator (NOT result)
-  window.location.href = "/calculator?distance=" + distance;
+  // 🔥 GET vehicle from localStorage (set in calculator)
+  let vehicle = localStorage.getItem("vehicle") || "Car";
+
+  window.location.href = "/calculator?distance=" + distance + "&vehicle=" + vehicle;
 }

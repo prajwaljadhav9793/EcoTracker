@@ -221,6 +221,10 @@ body > *{
 
         .tips-card h3 { color: #023e8a; margin-bottom: 12px; text-align: center; }
 
+        .tips-card li{
+            color: black;
+        }
+
         .tip-item {
             display: flex;
             gap: 10px;
@@ -448,17 +452,19 @@ body > *{
 
 <!-- ── Tips ── -->
 <div class="tips-card">
-    <h3>💡 Reduction Tips</h3>
-    <div class="tip-item"><span class="tip-icon">🚴</span><span>Switching one car trip per day to cycling saves ~2 kg CO₂ weekly.</span></div>
-    <div class="tip-item"><span class="tip-icon">♻️</span><span>Sorting and recycling waste can cut your waste emissions by up to 60%.</span></div>
-    <div class="tip-item"><span class="tip-icon">💡</span><span>Using LED bulbs and switching off idle appliances reduces electricity CO₂ by ~15%.</span></div>
-    <div class="tip-item"><span class="tip-icon">🌱</span><span>Composting organic waste prevents methane generation — one of the highest-impact waste actions.</span></div>
+   <h3>AI-Based Personalized Suggestions</h3>
+      <ul>
+        {% for tip in tips %}
+          <li>{{ tip }}</li>
+        {% endfor %}
+      </ul>
 </div>
 
 <!-- ── Buttons ── -->
 <div class="btn-row">
     <a href="/calculator" class="btn">🔄 Recalculate</a>
     <a href="/logout" class="btn outline">Logout</a>
+    <a href="/leaderboard" class="btn">View Leaderboard</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -572,5 +578,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
 </html>
-
-

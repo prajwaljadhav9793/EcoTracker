@@ -4,6 +4,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from flask import Flask, render_template, request, redirect, session
+
 from modules.user import (
     validate_name,
     validate_email,
@@ -11,10 +12,14 @@ from modules.user import (
     create_user
 )
 
+from modules.emissions import calculate_emissions
+from modules.calculator import calculate_score
+from modules.ai_module import get_ai_suggestions
+from modules.gamification import leaderboard, update_leaderboard
+
 app = Flask(__name__)
 app.secret_key = "secret123"
 
-# TEMP STORAGE
 users = {}
 
 
@@ -28,14 +33,8 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-
-        if email in users and users[email] == password:
-            session['user'] = email
-            return redirect('/calculator')
-        else:
-            return render_template("login.html", error="Invalid credentials")
+        session['user'] = request.form['email']
+        return redirect('/calculator')
 
     return render_template("login.html")
 
@@ -67,7 +66,6 @@ def register():
             return render_template("register.html", error="Email already exists")
 
         users[email] = password
-
         create_user(name, email, age, mobile, password)
 
         return redirect("/login")
@@ -79,79 +77,70 @@ def register():
 @app.route("/calculator", methods=['GET', 'POST'])
 def calculator():
 
-    email = request.args.get('email')
-
+    # ✅ Handle session properly
     if 'user' not in session:
+        email = request.args.get('email')
+
         if email:
             session['user'] = email
         else:
             return redirect('/login')
 
+    # ✅ GET request (from map or direct open)
     if request.method == 'GET':
-        return render_template("calculator.html", distance=0)
+        distance = request.args.get('distance', 0)
+        vehicle = request.args.get('vehicle', 'Car')
 
-    
-    labels = ['Transport', 'Electricity', 'Waste']
+        return render_template(
+            "calculator.html",
+            distance=distance,
+            selected_vehicle=vehicle
+        )
 
-    distance = float(request.form['distance'])
-    electricity = float(request.form['electricity'])
-    vehicle = request.form['vehicle']
-    waste = float(request.form['waste'])
+    # ✅ POST request (form submission)
+    distance = float(request.form.get('distance', 0))
+    electricity = float(request.form.get('electricity', 0))
+    vehicle = request.form.get('vehicle', 'Car')
+    waste = float(request.form.get('waste', 0))
 
-    vehicle_factor = {
-        "Car": 0.21,
-        "Bike": 0.12,
-        "Bus": 0.10,
-        "electric car": 0.05,
-        "electric bike": 0.02,
-        "Bicycle": 0.01,
-        "Walk": 0.0
+    breakdown, total_co2, highest_source = calculate_emissions(
+        electricity,
+        vehicle,
+        distance,
+        waste,
+        0,
+        0
+    )
+
+    total_score, message, values = calculate_score(vehicle, electricity, waste)
+
+    update_leaderboard(session['user'], total_score)
+
+    user_data = {
+        "carbon": total_co2,
+        "highest_source": highest_source,
+        "transport_co2": breakdown["Transport"],
+        "electricity_co2": breakdown["Electricity"],
+        "waste_co2": breakdown["Waste"],
+        "gas_co2": breakdown["Gas"],
+        "appliance_co2": breakdown["Appliances"]
     }
 
-    transport_co2 = round(distance * vehicle_factor.get(vehicle, 0.21), 2)
-    electricity_co2 = round(electricity * 0.82, 2)
-    waste_co2 = round(waste * 0.8, 2)
-    total_co2 = round(transport_co2 + electricity_co2 + waste_co2, 2)
 
-    vehicle_score_map = {
-        "Car": 5,
-        "Bike": 7,
-        "Bus": 8,
-        "electric car": 9,
-        "electric bike": 10,
-        "Bicycle": 10,
-        "Walk": 10
-    }
-
-    vehicle_score = vehicle_score_map.get(vehicle, 5)
-
-    electricity_score = 10 if electricity <= 50 else 7 if electricity <= 100 else 4
-    waste_score = 10 if waste <= 2 else 6 if waste <= 5 else 3
-
-    values = [vehicle_score, electricity_score, waste_score]
-    total_score = sum(values)
-
-    breakdown = {
-        "Transport": transport_co2,
-        "Electricity": electricity_co2,
-        "Waste": waste_co2
-    }
-
-    if total_score >= 25:
-        message = "Excellent 🌱 Eco Friendly!"
-    elif total_score >= 15:
-        message = "Good 👍 Keep Improving!"
+    if total_co2 < 5:
+        tips = ["Great job. Your carbon footprint is already low."]
     else:
-        message = "Needs Improvement ⚠️"
+        tips = get_ai_suggestions(user_data)
 
     return render_template(
         "result.html",
         carbon=total_co2,
         total=total_score,
         message=message,
-        labels=labels,
+        labels=['Transport', 'Electricity', 'Waste'],
         values=values,
-        breakdown=breakdown
+        breakdown=breakdown,
+        tips=tips
     )
 
 
@@ -168,38 +157,46 @@ def result():
     distance = float(request.args.get('distance', 0))
     vehicle = request.args.get('vehicle', 'Car')
 
-    vehicle_factor = {
-        "Car": 0.21,
-        "Bike": 0.12,
-        "Bus": 0.10,
-        "electric car": 0.05,
-        "electric bike": 0.02,
-        "Bicycle": 0.01,
-        "Walk": 0.0
+    breakdown, total_co2, highest_source = calculate_emissions(
+        0,
+        vehicle,
+        distance,
+        0,
+        0,
+        0
+    )
+
+    # ✅ FIXED AI DATA
+    user_data = {
+        "carbon": total_co2,
+        "highest_source": highest_source,
+        "transport_co2": breakdown["Transport"],
+        "electricity_co2": breakdown["Electricity"],
+        "waste_co2": breakdown["Waste"],
+        "gas_co2": breakdown["Gas"],
+        "appliance_co2": breakdown["Appliances"]
     }
 
-    transport_co2 = round(distance * vehicle_factor.get(vehicle, 0.21), 2)
-
-    labels = ['Transport', 'Electricity', 'Waste']
-
-    values = [5, 0, 0]
-
-    breakdown = {
-        "Transport": transport_co2,
-        "Electricity": 0,
-        "Waste": 0
-    }
+    if total_co2 < 5:
+        tips = ["Great job. Your carbon footprint is already low."]
+    else:
+        tips = get_ai_suggestions(user_data)
 
     return render_template(
         "result.html",
-        carbon=transport_co2,
+        carbon=total_co2,
         total=5,
         message="Journey Result 🚀",
-        labels=labels,
-        values=values,
-        breakdown=breakdown
+        labels=['Transport', 'Electricity', 'Waste'],
+        values=[5, 0, 0],
+        breakdown=breakdown,
+        tips=tips
     )
 
+# ------------------ LEADERBOARD ------------------
+@app.route('/leaderboard')
+def show_leaderboard():
+    return render_template("leaderboard.html", leaderboard=leaderboard)
 
 # ------------------ LOGOUT ------------------
 @app.route('/logout')
