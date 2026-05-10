@@ -8,8 +8,13 @@ from flask import Flask, render_template, request, redirect, session
 from modules.user import (
     validate_name,
     validate_email,
-    validate_password,
-    create_user
+    validate_password
+)
+
+from database.user_data import (
+    db,
+    add_user,
+    check_login
 )
 
 from modules.emissions import calculate_emissions
@@ -18,9 +23,15 @@ from modules.ai_module import get_ai_suggestions
 from modules.gamification import leaderboard, update_leaderboard
 
 app = Flask(__name__)
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database', 'user_database.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Initialize database
+db.init_app(app)
 app.secret_key = "secret123"
 
-users = {}
 
 
 # ------------------ HOME ------------------
@@ -30,11 +41,25 @@ def home():
 
 
 # ------------------ LOGIN ------------------
+# ------------------ LOGIN ------------------
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
     if request.method == 'POST':
-        session['user'] = request.form['email']
-        return redirect('/calculator')
+
+        email = request.form['email']
+        password = request.form['password']
+
+        valid_user = check_login(email, password)
+
+        if valid_user:
+            session['user'] = email
+            return redirect('/calculator')
+
+        return render_template(
+            'login.html',
+            error='Invalid Email or Password'
+        )
 
     return render_template("login.html")
 
@@ -62,11 +87,10 @@ def register():
         if not valid:
             return render_template("register.html", error=msg)
 
-        if email in users:
-            return render_template("register.html", error="Email already exists")
+        success = add_user(name, email, age, mobile, password)
 
-        users[email] = password
-        create_user(name, email, age, mobile, password)
+        if not success:
+            return render_template("register.html", error="Email already exists")
 
         return redirect("/login")
 
@@ -207,4 +231,8 @@ def logout():
 
 # ------------------ RUN ------------------
 if __name__ == '__main__':
+
+    with app.app_context():
+        db.create_all()
+
     app.run(debug=True)
