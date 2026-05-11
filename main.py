@@ -443,7 +443,6 @@ def calculator():
         tips=tips
     )
 # ---------------- QUICK START ----------------
-
 @app.route('/quickstart')
 def quickstart():
 
