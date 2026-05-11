@@ -1,137 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>EcoTracker</title>
-    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  </head>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+    <link rel="icon"
+          href="{{ url_for('static', filename='images/logo.png') }}"/>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+
 <body>
 
+<!-- ================= FLASH MESSAGE ================= -->
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+
+            <div class="flash-message">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- ================= NAVBAR ================= -->
 
 <nav class="navbar">
-  <a href="/" class="logo">
-  <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="EcoTracker Logo">
-  <span>EcoTracker</span>
-  </a>
 
-  <ul class="navlinks">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#about">About</a></li>
-  </ul>
+    <a href="/" class="logo">
 
-  <div class="nav-buttons">
-    <a href="/login">Login</a>
-    <a href="/register" class="btn">Get Started</a>
-  </div>
+        <img src="{{ url_for('static', filename='images/logo1.png') }}"
+             alt="EcoTracker Logo">
+
+        <span>EcoTracker</span>
+
+    </a>
+
+    <ul class="navlinks">
+
+        <li><a href="#home">Home</a></li>
+
+        <li><a href="#features">Features</a></li>
+
+        <li><a href="#about">About</a></li>
+
+    </ul>
+
+    <div class="nav-buttons">
+
+        {% if session.get('user_id') %}
+
+            <a href="/profile"
+               class="profile-btn"
+               title="Profile">
+
+                {% if navbar_photo %}
+                    <img src="{{ navbar_photo }}"
+                         alt="Profile Photo">
+                {% else %}
+                    <i class="fa-solid fa-user"></i>
+                {% endif %}
+
+            </a>
+
+            <a href="/logout" class="btn">
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="/login">
+                Login
+            </a>
+
+            <a href="/register" class="btn">
+                Get Started
+            </a>
+
+        {% endif %}
+
+    </div>
+
 </nav>
 
+<!-- ================= HERO ================= -->
 
 <section id="home" class="hero">
 
- <h1>
-  Track Your Carbon Footprint <br>
-  Build a Greener Future 
-  <i class="fas fa-leaf ecoemoji"></i>
-</h1>
+    <h1>
+        Track Your Carbon Footprint <br>
+        Build a Greener Future
+        <i class="fas fa-leaf ecoemoji"></i>
+    </h1>
 
-  <p>
-    Monitor your daily impact, earn eco points, and unlock rewards.
-  </p>
+    <p>
+        Monitor your daily impact,
+        earn eco points,
+        and unlock rewards.
+    </p>
 
-<form action="/calculator" method="GET" class="cta">
-  <input type="email" name="email" placeholder="Enter your email" required>
-  <button type="submit" class="btn">Start Free</button>
-</form>
+    <form action="/calculator"
+          method="GET"
+          class="cta">
 
+        <input type="email"
+               name="email"
+               placeholder="Enter your email"
+               required>
+
+        <button type="submit"
+                class="btn">
+
+            Start Free
+
+        </button>
+
+    </form>
+
+    <!-- ================= QUICK START ================= -->
+
+    <div class="quick-start-wrap">
+
+        {% if session.get('user_id') %}
+
+            <a href="/quickstart"
+               class="quick-start-btn">
+
+                ⚡ Quick Start
+
+            </a>
+
+        {% else %}
+
+            <a href="/login"
+               class="quick-start-btn">
+
+                ⚡ Quick Start
+
+            </a>
+
+        {% endif %}
+
+    </div>
 
 </section>
 
+<!-- ================= PREVIEW ================= -->
 
 <section class="preview">
-  <img src="{{ url_for('static', filename='images/dash.png') }}">
+
+    <img src="{{ url_for('static', filename='images/dash.png') }}"
+         alt="Dashboard preview">
+
 </section>
 
+<!-- ================= FEATURES ================= -->
 
-<section id="features" class="features-section" id="features">
+<section class="features-section"
+         id="features">
 
-  <h2>Features</h2>
-  <p class="section-subtitle">Powerful tools to track and reduce your carbon footprint</p>
+    <h2>Features</h2>
 
-  <div class="feature-grid">
+    <p class="section-subtitle">
+        Powerful tools to track and reduce your carbon footprint
+    </p>
 
-    <div class="card">
-      <h3>🌍 Carbon Tracking</h3>
-      <p>Automatically calculate emissions from daily activities.</p>
+    <div class="feature-grid">
+
+        <div class="card">
+            <h3>🌍 Carbon Tracking</h3>
+            <p>Automatically calculate emissions from daily activities.</p>
+        </div>
+
+        <div class="card">
+            <h3>📊 Dashboard</h3>
+            <p>Visualize your footprint with charts and insights.</p>
+        </div>
+
+        <div class="card">
+            <h3>🏆 Rewards</h3>
+            <p>Earn points and stay motivated.</p>
+        </div>
+
+        <div class="card">
+            <h3>📅 Daily Tracking</h3>
+            <p>Track your habits daily.</p>
+        </div>
+
+        <div class="card">
+            <h3>💡 Eco Tips</h3>
+            <p>Smart suggestions to reduce emissions.</p>
+        </div>
+
+        <div class="card">
+            <h3>📈 Insights</h3>
+            <p>Monitor progress over time.</p>
+        </div>
+
     </div>
 
-    <div class="card">
-      <h3>📊 Dashboard</h3>
-      <p>Visualize your footprint with charts and insights.</p>
-    </div>
-
-    <div class="card">
-      <h3>🏆 Rewards</h3>
-      <p>Earn points and stay motivated.</p>
-    </div>
-
-    <div class="card">
-      <h3>📅 Daily Tracking</h3>
-      <p>Track your habits daily.</p>
-    </div>
-
-    <div class="card">
-      <h3>💡 Eco Tips</h3>
-      <p>Smart suggestions to reduce emissions.</p>
-    </div>
-
-    <div class="card">
-      <h3>📈 Insights</h3>
-      <p>Monitor progress over time.</p>
-    </div>
-
-  </div>
 </section>
 
+<!-- ================= ABOUT ================= -->
 
-<section class="about-section" id="about">
-  <div class="about-container">
+<section class="about-section"
+         id="about">
 
-    <div class="about-header">
-      <h1>🌍 About EcoTracker</h1>
-      <p class="subtitle">Track. Improve. Sustain.</p>
+    <div class="about-container">
+
+        <div class="about-header">
+
+            <h1>🌍 About EcoTracker</h1>
+
+            <p class="subtitle">
+                Track. Improve. Sustain.
+            </p>
+
+        </div>
+
+        <div class="about-content">
+
+            <p>
+                EcoTracker helps individuals understand and reduce
+                their carbon footprint by tracking daily activities.
+            </p>
+
+            <p>
+                It converts actions into emissions and provides
+                insights, eco scores, and personalized suggestions.
+            </p>
+
+            <p class="highlight">
+                🌱 Small actions → Big impact
+            </p>
+
+        </div>
+
+        <div class="about-features">
+
+            <div class="card">
+                <h3>📊 Tracking</h3>
+                <p>Monitor your environmental impact.</p>
+            </div>
+
+            <div class="card">
+                <h3>💡 Smart Tips</h3>
+                <p>AI-based eco suggestions.</p>
+            </div>
+
+            <div class="card">
+                <h3>📈 Growth</h3>
+                <p>Track your sustainability journey.</p>
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="about-content">
-      <p>
-        EcoTracker helps individuals understand and reduce their carbon footprint by tracking daily activities.
-      </p>
-      <p>
-        It converts actions into emissions and provides insights, eco scores, and personalized suggestions.
-      </p>
-      <p class="highlight">
-        🌱 Small actions → Big impact
-      </p>
-    </div>
-
-    <div class="about-features">
-      <div class="card">
-        <h3>📊 Tracking</h3>
-        <p>Monitor your environmental impact.</p>
-      </div>
-
-      <div class="card">
-        <h3>💡 Smart Tips</h3>
-        <p>AI-based eco suggestions.</p>
-      </div>
-
-      <div class="card">
-        <h3>📈 Growth</h3>
-        <p>Track your sustainability journey.</p>
-      </div>
-    </div>
-
-  </div>
 </section>
+
 </body>
+</html>

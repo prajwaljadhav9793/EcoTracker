@@ -64,3 +64,28 @@ li {
   padding: 10px;
   border-radius: 6px;
 }
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+  body{
+    padding:15px;
+  }
+
+  .result-container,
+  .chart-container,
+  .tips-container{
+    width:100%;
+    max-width:100%;
+  }
+
+  h1{
+    font-size:30px;
+    text-align:center;
+  }
+
+  canvas{
+    width:100% !important;
+    height:auto !important;
+  }
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Quick Start</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/quickstart.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>⚡ Quick Start Tracking</h1>
+
+    <p>
+        Start your trip instantly.
+        EcoTracker will track your journey.
+    </p>
+
+    <div class="timer" id="timer">
+        00:00:00
+    </div>
+
+    <div class="buttons">
+
+        <button onclick="startTracking()"
+                class="start-btn">
+
+            Start Tracking
+
+        </button>
+
+        <button onclick="stopTracking()"
+                class="stop-btn">
+
+            Stop Tracking
+
+        </button>
+
+    </div>
+
+    <div id="status"></div>
+
+</div>
+
+<script>
+
+let seconds = 0;
+
+let timerInterval = null;
+
+let watchId = null;
+
+let totalDistance = 0;
+
+let previousPosition = null;
+
+function updateTimer(){
+
+    seconds++;
+
+    let hrs =
+        String(Math.floor(seconds / 3600)).padStart(2,'0');
+
+    let mins =
+        String(Math.floor((seconds % 3600)/60)).padStart(2,'0');
+
+    let secs =
+        String(seconds % 60).padStart(2,'0');
+
+    document.getElementById("timer").innerText =
+        `${hrs}:${mins}:${secs}`;
+}
+
+function calculateDistance(lat1, lon1, lat2, lon2){
+
+    const R = 6371;
+
+    const dLat =
+        (lat2 - lat1) * Math.PI / 180;
+
+    const dLon =
+        (lon2 - lon1) * Math.PI / 180;
+
+    const a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+
+        Math.cos(lat1 * Math.PI / 180) *
+
+        Math.cos(lat2 * Math.PI / 180) *
+
+        Math.sin(dLon/2) *
+
+        Math.sin(dLon/2);
+
+    const c =
+        2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    return R * c;
+}
+
+function startTracking(){
+
+    document.getElementById("status").innerHTML =
+        "Tracking Started";
+
+    if(!timerInterval){
+
+        timerInterval =
+            setInterval(updateTimer,1000);
+    }
+
+    if(navigator.geolocation){
+
+        watchId =
+            navigator.geolocation.watchPosition(
+
+            (position)=>{
+
+                const lat =
+                    position.coords.latitude;
+
+                const lon =
+                    position.coords.longitude;
+
+                if(previousPosition){
+
+                    const distance =
+                        calculateDistance(
+
+                            previousPosition.lat,
+                            previousPosition.lon,
+
+                            lat,
+                            lon
+                        );
+
+                    // Ignore tiny GPS noise
+                    if(distance > 0.01){
+
+                        totalDistance += distance;
+                    }
+                }
+
+                previousPosition = {
+                    lat: lat,
+                    lon: lon
+                };
+
+                console.log(
+                    "Distance:",
+                    totalDistance.toFixed(2),
+                    "km"
+                );
+            },
+
+            (error)=>{
+
+                alert(
+                    "Location access denied."
+                );
+            },
+
+            {
+                enableHighAccuracy:true
+            }
+        );
+    }
+}
+
+function stopTracking(){
+
+    clearInterval(timerInterval);
+
+    navigator.geolocation.clearWatch(watchId);
+
+    document.getElementById("status").innerHTML =
+        "Tracking Stopped";
+
+    const finalDistance =
+        totalDistance.toFixed(2);
+
+    window.location.href =
+        `/calculator?distance=${finalDistance}&vehicle=Bus&quick=true`;
+}
+
+</script>
+
+</body>
+</html>

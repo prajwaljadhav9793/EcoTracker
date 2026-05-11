@@ -41,13 +41,17 @@
 
     
       <label>📍 Distance Travelled (km)</label>
-      <input type="number" name="distance" value="{{ distance }}" required>
+      <input type="number"
+       name="distance"
+       value="{{ distance }}">
       
       <label>⚡ Electricity Usage (Units / Month)</label>
-      <input type="number" name="electricity" placeholder="Enter units used" required />
+      <input type="number"
+       name="electricity"
+       value="{{ electricity }}"> />
 
       <label>♻️ Waste Generated (kg)</label>
-      <input type="number" name="waste" placeholder="Enter waste amount" required />
+      <input type="number" name="waste" value="{{ waste }}" required />
 
      
       <button type="submit">

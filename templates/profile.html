@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div>
+            <h2>My Profile</h2>
+            <p class="subtitle">View and update your appliance profile anytime.</p>
+        </div>
+
+        <div class="header-actions">
+            <a href="{{ url_for('calculator') }}" class="btn outline-btn">Calculator</a>
+            <a href="{{ url_for('home') }}" class="btn outline-btn">Home</a>
+            <a href="{{ url_for('logout') }}" class="btn outline-btn">Logout</a>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash success">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- ================= TOP SECTION ================= -->
+
+    <div class="top-grid">
+
+        <div class="photo-card large">
+            <div class="photo-preview large-preview">
+
+                {% if photo_url %}
+                    <img src="{{ photo_url }}" alt="Profile Photo">
+                {% else %}
+                    <span>👤</span>
+                {% endif %}
+
+            </div>
+
+            <div class="photo-meta">
+                <h3>{{ user.name }}</h3>
+                <p>{{ user.email }}</p>
+                <p>Quick Start Average: {{ profile.average_duration }} hrs</p>
+                <p>Total Electricity Consumption: {{ profile.total_units }} kWh</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h3>User Details</h3>
+
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Age:</strong> {{ user.age }}</p>
+            <p><strong>Mobile:</strong> {{ user.mobile }}</p>
+        </div>
+
+    </div>
+
+    <!-- ================= STORED APPLIANCES ================= -->
+
+    <div class="section-title">
+        <h3>Stored Appliance Details</h3>
+        <p>These are the appliances saved in your profile.</p>
+    </div>
+
+    <div class="selected-box">
+
+        <div class="selected-list">
+
+            {% for item in appliances %}
+
+            <div class="appliance-item">
+
+                <div class="item-head">
+
+                    <div>
+                        <h4>{{ item.name }}</h4>
+
+                        <span class="chip">
+                            {{ item.type }} · {{ item.power_watts }}W
+                        </span>
+                    </div>
+
+                </div>
+
+                <p>
+                    <strong>Usage Hours:</strong>
+                    {{ item.hours }} hrs/day
+                </p>
+
+                <p>
+                    <strong>Energy Units:</strong>
+                    {{ item.units }} kWh
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <!-- ================= UPDATE FORM ================= -->
+
+    <form method="POST"
+          action="{{ url_for('update_profile') }}"
+          enctype="multipart/form-data"
+          class="profile-form">
+
+        <!-- ================= PROFILE PHOTO ================= -->
+
+        <div class="photo-card">
+
+            <div class="photo-preview" id="photoPreview">
+
+                {% if photo_url %}
+                    <img src="{{ photo_url }}" alt="Profile Photo">
+                {% else %}
+                    <span>+</span>
+                {% endif %}
+
+            </div>
+
+            <div class="photo-meta">
+
+                <h3>Update Profile Photo</h3>
+
+                <p>
+                    Upload a new picture to replace your current photo.
+                </p>
+
+                <input type="file"
+                       name="profile_photo"
+                       accept="image/*"
+                       onchange="previewPhoto(this)">
+
+            </div>
+
+        </div>
+
+        <!-- ================= APPLIANCE SELECTION ================= -->
+
+        <div class="section-title">
+            <h3>Update Appliance Selection</h3>
+            <p>Check new appliances or add custom appliances below.</p>
+        </div>
+
+        <div class="appliance-grid">
+
+            {% for item in default_appliances %}
+
+            <label class="appliance-option">
+
+                <input
+                    type="checkbox"
+                    class="appliance-check"
+                    data-key="{{ item.key }}"
+                    data-name="{{ item.name }}"
+                    data-type="{{ item.category }}"
+                    data-watts="{{ item.watts }}"
+                    onchange="toggleAppliance(this)"
+                >
+
+                <span class="option-name">
+                    {{ item.name }}
+                </span>
+
+                <span class="option-sub">
+                    {{ item.category }} · {{ item.watts }}W
+                </span>
+
+            </label>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- ================= CUSTOM APPLIANCE ================= -->
+
+        <div class="custom-box">
+
+            <h3>Add Custom Appliance</h3>
+
+            <div class="custom-row">
+
+                <input type="text"
+                       id="customName"
+                       placeholder="Type appliance name">
+
+                <input type="text"
+                       id="customType"
+                       placeholder="Type / Category">
+
+                <input type="number"
+                       id="customWatts"
+                       placeholder="Power (Watts)">
+
+                <button type="button"
+                        class="btn add-btn"
+                        onclick="addCustomAppliance()">
+
+                    Add
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- ================= EDITABLE LIST ================= -->
+
+        <div class="selected-box">
+
+            <h3>Editable Appliance List</h3>
+
+            <div id="selectedAppliances" class="selected-list">
+
+                {% for item in appliances %}
+
+                <div class="appliance-item"
+                     data-key="{{ item.name }}_{{ loop.index }}">
+
+                    <div class="item-head">
+
+                        <div>
+
+                            <h4>{{ item.name }}</h4>
+
+                            <span class="chip">
+                                {{ item.type }} · {{ item.power_watts }}W
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <input type="hidden"
+                           name="appliance_name[]"
+                           value="{{ item.name }}">
+
+                    <input type="hidden"
+                           name="appliance_type[]"
+                           value="{{ item.type }}">
+
+                    <input type="hidden"
+                           name="power_watts[]"
+                           value="{{ item.power_watts }}">
+
+                    <label>Usage Hours / Day</label>
+
+                    <input type="number"
+                           step="0.1"
+                           name="usage_hours[]"
+                           value="{{ item.hours }}"
+                           required>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <!-- ================= QUICK START ================= -->
+
+        <div class="duration-box">
+
+            <h3>Quick Start Average</h3>
+
+            <p>
+                Update this value to control the quick start default duration later.
+            </p>
+
+            <input type="number"
+                   step="0.1"
+                   name="average_duration"
+                   value="{{ profile.average_duration }}"
+                   required>
+
+        </div>
+
+        <button type="submit" class="btn primary-btn">
+            Update Profile
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+
+function previewPhoto(input) {
+
+    const preview = document.getElementById('photoPreview');
+
+    preview.innerHTML = '';
+
+    if (input.files && input.files[0]) {
+
+        const img = document.createElement('img');
+
+        img.src = URL.createObjectURL(input.files[0]);
+
+        preview.appendChild(img);
+    }
+}
+
+function createApplianceCard({ key, name, type, watts, hours = "" }) {
+
+    const wrapper = document.createElement('div');
+
+    wrapper.className = 'appliance-item';
+
+    wrapper.dataset.key = key;
+
+    wrapper.innerHTML = `
+
+        <div class="item-head">
+
+            <div>
+
+                <h4>${name}</h4>
+
+                <span class="chip">
+                    ${type} · ${watts}W
+                </span>
+
+            </div>
+
+            <button type="button"
+                    class="remove-btn"
+                    onclick="removeAppliance('${key}')">
+
+                Remove
+
+            </button>
+
+        </div>
+
+        <input type="hidden"
+               name="appliance_name[]"
+               value="${name}">
+
+        <input type="hidden"
+               name="appliance_type[]"
+               value="${type}">
+
+        <input type="hidden"
+               name="power_watts[]"
+               value="${watts}">
+
+        <label>Usage Hours / Day</label>
+
+        <input type="number"
+               step="0.1"
+               name="usage_hours[]"
+               value="${hours}"
+               placeholder="Enter hours"
+               required>
+    `;
+
+    document
+        .getElementById('selectedAppliances')
+        .appendChild(wrapper);
+}
+
+function toggleAppliance(checkbox) {
+
+    const key = checkbox.dataset.key;
+
+    const existing =
+        document.querySelector(`.appliance-item[data-key="${key}"]`);
+
+    if (checkbox.checked) {
+
+        if (!existing) {
+
+            createApplianceCard({
+                key: key,
+                name: checkbox.dataset.name,
+                type: checkbox.dataset.type,
+                watts: checkbox.dataset.watts
+            });
+        }
+
+    } else {
+
+        if (existing) {
+            existing.remove();
+        }
+    }
+}
+
+function removeAppliance(key) {
+
+    const row =
+        document.querySelector(`.appliance-item[data-key="${key}"]`);
+
+    if (row) row.remove();
+
+    const checkbox =
+        document.querySelector(`.appliance-check[data-key="${key}"]`);
+
+    if (checkbox) checkbox.checked = false;
+}
+
+function addCustomAppliance() {
+
+    const nameInput =
+        document.getElementById('customName');
+
+    const typeInput =
+        document.getElementById('customType');
+
+    const wattsInput =
+        document.getElementById('customWatts');
+
+    const name = nameInput.value.trim();
+
+    const type = typeInput.value.trim() || 'Custom';
+
+    const watts = wattsInput.value.trim();
+
+    if (!name || !watts) {
+
+        alert('Please enter appliance name and power in watts.');
+
+        return;
+    }
+
+    const key = 'custom_' + Date.now();
+
+    createApplianceCard({
+        key: key,
+        name: name,
+        type: type,
+        watts: watts
+    });
+
+    nameInput.value = '';
+    typeInput.value = '';
+    wattsInput.value = '';
+}
+
+</script>
+
+</body>
+</html>

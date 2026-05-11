@@ -161,3 +161,37 @@ button:hover{
         font-size:15px;
     }
 }
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+  body{
+    padding:15px;
+  }
+
+  .container,
+  .calculator-container,
+  .calculator-box{
+    width:100%;
+    max-width:100%;
+    padding:22px;
+  }
+
+  h1{
+    font-size:30px;
+    text-align:center;
+  }
+
+  input,
+  select,
+  button{
+    width:100%;
+  }
+
+  .row,
+  .input-group,
+  .button-group{
+    flex-direction:column;
+    gap:12px;
+  }
+}

@@ -71,3 +71,22 @@ tr:hover {
 .back-btn:hover {
     background-color: #009624;
 }
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+  body{
+    padding:15px;
+  }
+
+  table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+
+  h1{
+    font-size:28px;
+    text-align:center;
+  }
+}

@@ -88,3 +88,44 @@ color:rgb(78,0,0);
 letter-spacing:1px;
 font-style:italic;
 }
+
+.error {
+    color: #b00020;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin: 0 0 15px 0;
+    font-weight: 600;
+    text-align: center;
+}
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+  body{
+    padding:20px;
+  }
+
+  h2{
+    font-size:28px;
+  }
+
+  h3{
+    font-size:18px;
+  }
+
+  form{
+    width:100%;
+    max-width:360px;
+    padding:30px 22px;
+  }
+
+  input,
+  button{
+    font-size:15px;
+  }
+
+  #tag{
+    font-size:18px;
+  }
+}
