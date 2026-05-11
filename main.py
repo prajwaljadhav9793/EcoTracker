@@ -110,7 +110,6 @@ def build_appliance_items(form):
 
     return items
 
-
 @app.route('/')
 def home():
     navbar_photo = None
