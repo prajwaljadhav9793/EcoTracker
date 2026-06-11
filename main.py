@@ -23,6 +23,7 @@ from database.user_data import (
     save_profile
 )
 
+
 from modules.emissions import calculate_emissions
 from modules.calculator import calculate_score
 from modules.ai_module import get_ai_suggestions
