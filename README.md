@@ -182,24 +182,6 @@ Feel free to fork the repository, create a feature branch, and submit a pull req
 
 ---
 
-## 👨‍💻 Author
-
-### Prajwal Jadhav
-
-Computer Science Student passionate about:
-- Full-Stack Development
-- Artificial Intelligence
-- Sustainable Technology
-- Problem Solving
-
-🔗 LinkedIn:  
-https://www.linkedin.com/in/prajwal-jadhav-a4267932a/
-
-🔗 GitHub:  
-https://github.com/prajwaljadhav9793
-
----
-
 ## ⭐ Support
 
 If you found this project useful, consider giving it a ⭐ on GitHub.
