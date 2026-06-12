@@ -67,25 +67,28 @@ Track improvements and sustainability achievements over time.
 
 ---
 
-## 📸 Screenshots
+## 📸 Project Screenshots
 
-### Dashboard
-(Add Screenshot Here)
+### 🏠 Landing Page
+![Landing Page](screenshots/home.png)
 
-### Carbon Footprint Calculator
-(Add Screenshot Here)
+### 🌱 Carbon Footprint Calculator
+![Calculator](screenshots/calculator.png)
 
-### Energy Consumption Tracking
-(Add Screenshot Here)
+### 📊 Eco Dashboard
+![Dashboard](screenshots/dashboard.png)
 
-### AI Sustainability Suggestions
-(Add Screenshot Here)
+### 📈 Analytics & Visualizations
+![Analytics](screenshots/analytics.png)
 
-### User Profile
-(Add Screenshot Here)
+### 🏆 Leaderboard System
+![Leaderboard](screenshots/leaderboard.png)
 
-### Leaderboard
-(Add Screenshot Here)
+### 👤 User Profile
+![Profile](screenshots/profile.png)
+
+### 🗺️ Live Journey Tracking
+![Map Tracking](screenshots/map.png)
 
 ---
 
